@@ -1,9 +1,9 @@
 Name: YOUR NAME HERE
 
-| Date    |  Time  |                                     Update |
-|:--------|:------:|-------------------------------------------:|
-| April 5 | 9-10pm | I tried to write abstract, efficient code. |
-|         |        |                                            |
+| Date         |    Time    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Update |
+|:-------------|:----------:|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| September 11 | 12:45-1:45 |                                                                                                                                                                                                                                 In class, I began thinking about the problem and then started writing code based on how I initially wanted to solve the problem. I tried to use a breadth first search, treating every "move" as a highway. I also used the whiteboard to help me think out an example case. |
+| September 11 |   5-6pm    | I continued coding and was troubleshooting my initial solution. I also used a test case to help see what the graph actually looked like. Finally, I fixed a few of the issues that exist. One big problem was trying to grab a city that I haven't visited yet in order to jump to the next cluster. I ended up just doing a loop through every city and grabbing the first one that hadn't been visited. Extremely inefficient but it worked, passing 5 our of 6 test cases (other one timed out I think).  |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
