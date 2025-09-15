@@ -1,7 +1,4 @@
 import java.util.*;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Highways & Hospitals
@@ -29,15 +26,16 @@ public class HighwaysAndHospitals {
         for (int i = 0; i < length; i++) {
             // I am using these while loops to make sure we find the root node of both A and B.
             int root_A = cities[i][0];
-            while (root_A != -1) {
+            while (map[root_A - 1] != -1) {
                 root_A = map[root_A - 1];
             }
             int root_B = cities[i][1];
-            while (root_B != -1) {
+            while (map[root_B - 1] != -1) {
                 root_B = map[root_B - 1];
             }
-            // Here, I am comparing th root nodes. If they are not the same, I will point the second root to the first to connect them into the same component.
-            if (root_A != root_B) {
+            // Here, I am comparing the root nodes. If they are not the same, I will point the second root to the first to connect them into the same component.
+            // I need to add the second condition because or else the map will never be edited, as the value of each node starts at -1 and are therefore equal to each other.
+            if ((root_A != root_B)) {
                 map[root_B - 1] = root_A;
             }
         }
@@ -48,8 +46,6 @@ public class HighwaysAndHospitals {
                 comps++;
             }
         }
-        System.out.println(comps);
-        System.out.println(map);
         // To compute the answer:
         // The cost of hospitals is just the number of components times the hospital cost, as the optimal solution will have exactly one hospital in every disconnected subgraph.
         // The cost of highways is the sum of all the "V - 1"s for each disconnected component. However, we know the sum of all Vs adds to N, so all we need to do is subtract 1 from N for each disconnected subgraph, then multiply by the cost of one highway.
