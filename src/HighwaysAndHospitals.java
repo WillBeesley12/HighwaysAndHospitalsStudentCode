@@ -19,30 +19,62 @@ public class HighwaysAndHospitals {
         // Initialize our map; for now, make every value -1 so that the "blank" nodes will have value -1 at the end.
         int[] map = new int[n];
         for (int i = 0; i < n; i++) {
-            map[i] = -1;
+            map[i] = 0;
         }
         // Now, iterate through each edge. Here, we will use the union find algorithm to calculate the number of disconnected subgraphs.
         int length = cities.length;
         for (int i = 0; i < length; i++) {
-            // I am using these while loops to make sure we find the root node of both A and B.
-            int root_A = cities[i][0];
-            while (map[root_A - 1] != -1) {
-                root_A = map[root_A - 1];
+            // Define variables
+            int A = cities[i][0];
+            int B = cities[i][1];
+            int root_A;
+            int root_B;
+            // If the node is a root, set the root equal to it, for both A and B
+            if (map[A - 1] <= 0) {
+                root_A = A;
             }
-            int root_B = cities[i][1];
-            while (map[root_B - 1] != -1) {
-                root_B = map[root_B - 1];
+            else {
+                root_A = map[A - 1];
+            }
+            if (map[B - 1] <= 0) {
+                root_B = B;
+            }
+            else {
+                root_B = map[B - 1];
+            }
+            // Y and Z are the order of the roots of A and B
+            int Y = map[root_A - 1];
+            int Z = map[root_B - 1];
+            // If the roots are not the same, connect the two subgraphs.
+            if (root_A != root_B) {
+                // Set the root of A or B to whichever one has a higher order. Add the order of the existing one.
+                if (Y < Z) {
+                    map[root_A - 1] += map[root_B - 1] - 1;
+                    map[root_B - 1] = root_A;
+                } else {
+                    map[root_B - 1] += (map[root_A - 1] - 1);
+                    map[root_A - 1] = root_B;
+                }
+            }
+            // Use the while loop to find the root of A, storing it under X
+            int x = A;
+            while (map[x - 1] > 0) {
+                x = map[x - 1];
+            }
+            // Go through and assign the root of each node between the original A to X directly to X.
+            int temp;
+            while (map[A - 1] > 0) {
+                temp = map[A - 1];
+                map[A - 1] = x;
+                A = temp;
             }
             // Here, I am comparing the root nodes. If they are not the same, I will point the second root to the first to connect them into the same component.
             // I need to add the second condition because or else the map will never be edited, as the value of each node starts at -1 and are therefore equal to each other.
-            if ((root_A != root_B)) {
-                map[root_B - 1] = root_A;
-            }
         }
         // Now all I have to do is count the number of components there are by going through my map and looking for "-1"s.
         long comps = 0;
         for (int i = 0; i < n; i++) {
-            if (map[i] == -1) {
+            if (map[i] <= 0) {
                 comps++;
             }
         }
