@@ -16,11 +16,8 @@ public class HighwaysAndHospitals {
         if (hospitalCost <= highwayCost) {
             return (long) n * hospitalCost;
         }
-        // Initialize our map; for now, make every value -1 so that the "blank" nodes will have value -1 at the end.
+        // Initialize our map; for now, make every value 0 so that the "blank" nodes will have value less than or equal to 0 at the end.
         int[] map = new int[n];
-        for (int i = 0; i < n; i++) {
-            map[i] = 0;
-        }
         // Now, iterate through each edge. Here, we will use the union find algorithm to calculate the number of disconnected subgraphs.
         int length = cities.length;
         for (int i = 0; i < length; i++) {
@@ -71,13 +68,5 @@ public class HighwaysAndHospitals {
             node = temp;
         }
         return root;
-    }
-    public static void main(String[] args) {
-        int n = 7;
-        int hospitalCost = 3;
-        int highwayCost = 2;
-        int cities[][] = {{2,7}, {1,3}, {1,2}, {2,3}, {5,6}, {4,6}};
-        long cost = cost(n, hospitalCost, highwayCost, cities);
-        System.out.println(cost);
     }
 }
